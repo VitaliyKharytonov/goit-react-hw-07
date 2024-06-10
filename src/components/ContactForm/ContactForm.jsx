@@ -1,40 +1,34 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import * as Yup from "yup";
-import css from "./ContactForm.module.css";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
-import { nanoid } from "@reduxjs/toolkit";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useId } from 'react';
+import * as Yup from 'yup';
+import css from './ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsOps';
 
 export default function ContactForm() {
   const fieldId = useId();
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    console.log(values);
-    const value = {
-      id: nanoid(),
-      contact: { ...values },
-    };
-    dispatch(addContact(value));
+    dispatch(addContact(values));
     actions.resetForm();
   };
 
   const UserSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, "Min 3 characters!")
-      .max(50, "Max 50 characters!")
-      .required("Required"),
+      .min(3, 'Min 3 characters!')
+      .max(50, 'Max 50 characters!')
+      .required('Required'),
     number: Yup.string()
-      .min(3, "Min 3 characters!")
-      .max(50, "Max 50 characters!")
-      .required("Required"),
+      .min(3, 'Min 3 characters!')
+      .max(50, 'Max 50 characters!')
+      .required('Required'),
   });
 
   return (
     <>
       <Formik
-        initialValues={{ name: "", number: "" }}
+        initialValues={{ name: '', number: '' }}
         onSubmit={handleSubmit}
         validationSchema={UserSchema}
       >
@@ -47,11 +41,7 @@ export default function ContactForm() {
           <div className={css.container}>
             <label htmlFor={`${fieldId}-userphone`}>Number</label>
             <Field type="text" name="number" id={`${fieldId}-userphone`} />
-            <ErrorMessage
-              className={css.error}
-              name="number"
-              component="span"
-            />
+            <ErrorMessage className={css.error} name="number" component="span" />
           </div>
           <button type="submit" className={css.button}>
             Submit

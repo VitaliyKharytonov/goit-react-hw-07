@@ -1,13 +1,8 @@
-import { deleteContact } from "../../redux/contactsSlice";
-import css from "./Contact.module.css";
-import { useDispatch } from "react-redux";
+import { deleteContact } from '../../redux/contactsOps';
+import css from './Contact.module.css';
+import { useDispatch } from 'react-redux';
 
-export default function Contact({
-  contact: {
-    id,
-    contact: { name, number },
-  },
-}) {
+export default function Contact({ contact: { id, name, number } }) {
   const dispatch = useDispatch();
 
   const hendleDelete = () => {
